@@ -20,10 +20,11 @@ public class ReaderCSV {
 			while (br.ready()) {
 				entry = new Entry();
 				line = br.readLine();
+					line.replaceAll(" ", "");
+				
 				strings = line.split(";");
 				entry.setDatum( Double.parseDouble( strings[ParserConstants.Datum] ) );
 				System.out.println(entry.getDatum());
-				
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
