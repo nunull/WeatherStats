@@ -25,6 +25,24 @@ public class WeatherStats {
 			
 		}
 	}
-	
-	// TODO only getters here
+
+	public LinkedList<Entry> getEntrys() {
+		return entrys;
+	}
+
+	public double getAverageTemperature() {
+		return averageTemperature;
+	}
+
+	public GregorianCalendar[] getHighestWindSpeed() {
+		return highestWindSpeed;
+	}
+
+	public GregorianCalendar[] getHotestMonths() {
+		return hotestMonths;
+	}
+
+	public GregorianCalendar[] getHighestSnowHeight() {
+		return highestSnowHeight;
+	}
 }
