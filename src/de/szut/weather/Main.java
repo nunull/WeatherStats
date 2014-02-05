@@ -9,14 +9,14 @@ import de.szut.weather.parser.ReaderCSV;
 public class Main {
 
 	/**
-	 * @param args
+	 * @param args ignored
 	 */
 	public static void main(String[] args) {
 		
 		/* testing parser */
 		ReaderCSV reader = new ReaderCSV();
 		try {
-			reader.read(new BufferedReader(new FileReader("trunk/ressources/Klima_Tageswerte_1890_2013.csv")));
+			reader.read(new BufferedReader(new FileReader(Config.CSV_PATH)));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
