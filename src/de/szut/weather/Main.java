@@ -3,8 +3,12 @@ package de.szut.weather;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.LinkedList;
+import java.util.TreeMap;
 
-import de.szut.weather.parser.ReaderCSV;
+import de.szut.weather.models.Entry;
+import de.szut.weather.parser.CSVReader;
+import de.szut.weather.parser.CSVReaderOptions;
 
 public class Main {
 
@@ -14,9 +18,12 @@ public class Main {
 	public static void main(String[] args) {
 		
 		/* testing parser */
-		ReaderCSV reader = new ReaderCSV();
+		CSVReader reader = new CSVReader();
+		CSVReaderOptions options = new CSVReaderOptions();
+		options.put("Datum", String.class);
+		
 		try {
-			reader.read(new BufferedReader(new FileReader(Config.CSV_PATH)));
+			LinkedList<Entry> entrys = reader.read(new BufferedReader(new FileReader(Config.CSV_PATH)), options);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
