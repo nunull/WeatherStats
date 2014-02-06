@@ -1,15 +1,17 @@
 package de.szut.weather.stats;
 
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import de.szut.weather.models.*;
+import de.szut.weather.parser.CSVReaderOptions;
 
 public class WeatherStats {
 	
 	private LinkedList<Entry> entrys;
 	
-	private double averageTemperature;
+	private double averageTemperature; //TODO should be called TM, like in the tasksheet??
 	private GregorianCalendar[] highestWindSpeed;
 	private GregorianCalendar[] hotestMonths;
 	private GregorianCalendar[] highestSnowHeight;
@@ -21,9 +23,22 @@ public class WeatherStats {
 	}
 	
 	private void calcStats() {
+		System.out.println("start");
 		for(int i = 0, j = entrys.size(); i < j; i++) {
 			
+			/* average temperatur */
+			Entry entry = entrys.get(i); //TODO this line works to slow
+			averageTemperature += (Double) entry.get("TM");
+			
+			/*highest wind speed*/
+			
+			/*hotest month*/
+			
+			/*highes snow height*/
+			
 		}
+		averageTemperature = averageTemperature / entrys.size();
+		System.out.println("ende");
 	}
 
 	public LinkedList<Entry> getEntrys() {

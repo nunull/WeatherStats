@@ -6,7 +6,7 @@ public class CSVReaderOptions {
 	private TreeMap<String, Class> options;
 	
 	public CSVReaderOptions() {
-		 options = new TreeMap();
+		 options = new TreeMap<String, Class>();
 	}
 	
 	public void put(String key, Class value) {
