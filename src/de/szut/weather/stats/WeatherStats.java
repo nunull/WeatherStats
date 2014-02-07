@@ -11,10 +11,10 @@ public class WeatherStats {
 	
 	private LinkedList<Entry> entrys;
 	
-	private double averageTemperature; //TODO should be called TM, like in the tasksheet??
-	private GregorianCalendar[] highestWindSpeed;
-	private GregorianCalendar[] hotestMonths;
-	private GregorianCalendar[] highestSnowHeight;
+	private double tm; //average temperature
+	private LinkedList<Entry> fx; //five days, highest wind speed
+	private LinkedList<Entry> tx; //five hottest days
+	private Entry shk; //day with highest snow
 	
 	public WeatherStats(LinkedList<Entry> entrys) {
 		this.entrys = entrys;
@@ -26,7 +26,7 @@ public class WeatherStats {
 		for(Entry entry : entrys) {
 			
 			// average temperatur
-			averageTemperature += (Double) entry.get("TM");
+			tm += (Double) entry.get("TM");
 			
 			//highest wind speed
 			
@@ -35,26 +35,26 @@ public class WeatherStats {
 			//highest snow height
 			
 		}
-		averageTemperature = averageTemperature / entrys.size();
+		tm = tm / entrys.size();
 	}
 
 	public LinkedList<Entry> getEntrys() {
 		return entrys;
 	}
 
-	public double getAverageTemperature() {
-		return averageTemperature;
+	public double getTm() {
+		return tm;
 	}
 
-	public GregorianCalendar[] getHighestWindSpeed() {
-		return highestWindSpeed;
+	public LinkedList<Entry> getFx() {
+		return fx;
 	}
 
-	public GregorianCalendar[] getHotestMonths() {
-		return hotestMonths;
+	public LinkedList<Entry> getTx() {
+		return tx;
 	}
 
-	public GregorianCalendar[] getHighestSnowHeight() {
-		return highestSnowHeight;
+	public Entry getShk() {
+		return shk;
 	}
 }
