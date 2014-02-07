@@ -25,13 +25,7 @@ public class CSVReader {
 						Class type = options.get(keys[i]); //TODO saved as object, cast unnötig
 						
 						if(values[i] != null) {
-							Object o = null;
-							if(type == null) {
-								o = Double.parseDouble(values[i]);
-							} else {
-								o = type.cast(values[i]);
-							}
-							entry.put(keys[i], o);
+							entry.put(keys[i], values[i]);
 						}
 						
 					}
