@@ -8,32 +8,42 @@ import de.szut.weather.models.*;
 import de.szut.weather.parser.CSVReaderOptions;
 
 public class WeatherStats {
-	
+
 	private LinkedList<Entry> entrys;
-	
+
 	private double tm; //average temperature
 	private LinkedList<Entry> fx; //five days, highest wind speed
 	private LinkedList<Entry> tx; //five hottest days
 	private Entry shk; //day with highest snow
-	
+
 	public WeatherStats(LinkedList<Entry> entrys) {
 		this.entrys = entrys;
-		
+
 		calcStats();
 	}
-	
+
 	private void calcStats() {
-		for(Entry entry : entrys) {
-			
-			// average temperatur
-			tm += (Double) entry.get("TM");
-			
-			//highest wind speed
-			
+		Entry highestFx;
+		for (int i = 0; i<=4; i++){
+			for(Entry entry : entrys) {
+
+				// average temperatur
+				tm += (Double) entry.get("TM");
+
+				//highest wind speed
+				fx = new LinkedList<Entry>();
+				if (entry.getValueAsDouble("FX") >= highestFx.getValueAsDouble("FX") && !entrys.contains(entry)){
+					highestFx = entry;
+					fx.add(highestFx);
+				}
+
+
+			}
+
 			//hotest month
-			
+
 			//highest snow height
-			
+
 		}
 		tm = tm / entrys.size();
 	}
