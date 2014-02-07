@@ -23,22 +23,19 @@ public class WeatherStats {
 	}
 	
 	private void calcStats() {
-		System.out.println("start");
-		for(int i = 0, j = entrys.size(); i < j; i++) {
+		for(Entry entry : entrys) {
 			
-			/* average temperatur */
-			Entry entry = entrys.get(i); //TODO this line works to slow
+			// average temperatur
 			averageTemperature += (Double) entry.get("TM");
 			
-			/*highest wind speed*/
+			//highest wind speed
 			
-			/*hotest month*/
+			//hotest month
 			
-			/*highes snow height*/
+			//highest snow height
 			
 		}
 		averageTemperature = averageTemperature / entrys.size();
-		System.out.println("ende");
 	}
 
 	public LinkedList<Entry> getEntrys() {
