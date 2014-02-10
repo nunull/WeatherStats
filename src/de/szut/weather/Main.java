@@ -3,12 +3,12 @@ package de.szut.weather;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.ObjectInputStream.GetField;
 import java.util.LinkedList;
 import java.util.TreeMap;
 
 import de.szut.weather.models.Entry;
 import de.szut.weather.parser.CSVReader;
-import de.szut.weather.parser.CSVReaderOptions;
 import de.szut.weather.stats.*;
 
 public class Main {
@@ -20,16 +20,13 @@ public class Main {
 		
 		/* testing parser */
 		CSVReader reader = new CSVReader();
-		CSVReaderOptions options = new CSVReaderOptions();
-		options.put("Datum", String.class);
 		
 		try {
-			LinkedList<Entry> entrys = reader.read(new BufferedReader(new FileReader(Config.CSV_PATH)), options);
+			LinkedList<Entry> entrys = reader.read(new BufferedReader(new FileReader(Config.CSV_PATH)));
 			WeatherStats stats = new WeatherStats(entrys);
-			
-			for(Entry entry : stats.getFx()) {
-				System.out.println(entry.getValueAsDouble("FX"));
-			}
+			System.out.println( stats.getTm() );
+			System.out.println( stats.getFx().get(3).getValueAsString("FX"));
+			System.out.println( stats.getTx().get(4).getValueAsDouble("TX"));
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
