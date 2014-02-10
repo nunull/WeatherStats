@@ -25,6 +25,7 @@ public class Main {
 			LinkedList<Entry> entrys = reader.read(new BufferedReader(new FileReader(Config.CSV_PATH)));
 			WeatherStats stats = new WeatherStats(entrys);
 			System.out.println( stats.getTm() );
+			System.out.println( stats.getShk().getValueAsString("SHK") );
 			System.out.println( stats.getFx().get(3).getValueAsString("FX"));
 			System.out.println( stats.getTx().get(4).getValueAsDouble("TX"));
 			
