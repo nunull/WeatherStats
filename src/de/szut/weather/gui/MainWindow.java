@@ -1,6 +1,13 @@
 package de.szut.weather.gui;
 
+import info.monitorenter.gui.chart.Chart2D;
+import info.monitorenter.gui.chart.IPointPainter;
+import info.monitorenter.gui.chart.ITrace2D;
+import info.monitorenter.gui.chart.ITracePoint2D;
+import info.monitorenter.gui.chart.traces.Trace2DSimple;
+
 import java.util.LinkedList;
+import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -8,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.ListModel;
 
+import de.szut.weather.models.Entry;
 import de.szut.weather.stats.WeatherStats;
 
 public class MainWindow {
@@ -40,10 +48,21 @@ public class MainWindow {
 	private void buildTabs() {
 		tabs = new LinkedList<JPanel>();
 		
-		JPanel highestWindTab = new JPanel();
-		highestWindTab.setName("Highest Windspeed");
+		JPanel highestWindSpeedTab = new JPanel();
+		highestWindSpeedTab.setName("Highest Windspeed");
 		
-		tabs.add(highestWindTab);
+		Chart2D highestWindSpeedChart = new Chart2D();
+		highestWindSpeedChart.setSize(300, 300);
+		ITrace2D highestWindSpeedTrace = new Trace2DSimple();
+		highestWindSpeedChart.addTrace(highestWindSpeedTrace);
+		
+		LinkedList<Entry> fx = stats.getFx();
+		for(int i = 0, j = fx.size(); i < j; i++) {
+			highestWindSpeedTrace.addPoint(i, fx.get(i).getValueAsDouble("FX"));
+		}
+		
+		highestWindSpeedTab.add(highestWindSpeedChart);
+		tabs.add(highestWindSpeedTab);
 	}
 	
 	public void show() {
