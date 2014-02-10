@@ -23,17 +23,40 @@ public class WeatherStats {
 		tx = new LinkedList<Entry>();
 		shk = entrys.getFirst();
 		
-		for (int i = 0; i < 5; i++){
+		
+		fx.add(entrys.getFirst());
+		tx.add(entrys.getFirst());
+
+		for(Entry entry : entrys) { //split up first loop for better performance (tm & shk)
+			// average temperature ----- highest snow height
+				tm += entry.getValueAsDouble("TM");
+				if (entry.getValueAsDouble("SHK") > shk.getValueAsDouble("SHK") ) shk.put("SHK", entry.getValueAsString("SHK") );
+
+			//highest wind speed
+			try {
+				if (entry.getValueAsDouble("FX") > fx.get(0).getValueAsDouble("FX") && !fx.contains(entry)) {
+					fx.remove(0);
+					fx.add(0, entry);
+				}
+			} catch(NullPointerException e) {
+				// TODO
+			}
+			//hottest five days
+			try {
+				if (entry.getValueAsDouble("TX") > tx.get(0).getValueAsDouble("TX") && !tx.contains(entry)) {
+					tx.remove(0);
+					tx.add(0, entry);
+				}
+			} catch(NullPointerException e) {
+				//TODO
+			}
+		}
+
+		for (int i = 1; i < 5; i++){
 			fx.add(entrys.getFirst());
 			tx.add(entrys.getFirst());
 
 			for(Entry entry : entrys) {
-				// average temperature ----- highest snow height
-				if(i == 0) {
-					tm += entry.getValueAsDouble("TM");
-					if (entry.getValueAsDouble("SHK") > shk.getValueAsDouble("SHK") ) shk.put("SHK", entry.getValueAsString("SHK") );
-				}
-
 				//highest wind speed
 				try {
 					if (entry.getValueAsDouble("FX") > fx.get(i).getValueAsDouble("FX") && !fx.contains(entry)) {
