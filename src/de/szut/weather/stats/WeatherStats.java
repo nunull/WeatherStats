@@ -23,21 +23,27 @@ public class WeatherStats {
 	}
 
 	private void calcStats() {
-		Entry highestFx;
-		for (int i = 0; i<=4; i++){
+		fx = new LinkedList<Entry>();
+		
+		for (int i = 0; i < 5; i++){
+			fx.add(entrys.get(0));
+			
 			for(Entry entry : entrys) {
-
+				
 				// average temperatur
-				tm += (Double) entry.get("TM");
-
-				//highest wind speed
-				fx = new LinkedList<Entry>();
-				if (entry.getValueAsDouble("FX") >= highestFx.getValueAsDouble("FX") && !entrys.contains(entry)){
-					highestFx = entry;
-					fx.add(highestFx);
+				if(i == 0) {
+					tm += entry.getValueAsDouble("TM");
 				}
 
-
+				//highest wind speed
+				try {
+					if (entry.getValueAsDouble("FX") > fx.get(i).getValueAsDouble("FX") && !fx.contains(entry)) {
+						fx.remove(i);
+						fx.add(i, entry);
+					}
+				} catch(NullPointerException e) {
+					// TODO
+				}
 			}
 
 			//hotest month
@@ -45,6 +51,7 @@ public class WeatherStats {
 			//highest snow height
 
 		}
+		
 		tm = tm / entrys.size();
 	}
 

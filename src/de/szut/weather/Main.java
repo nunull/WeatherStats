@@ -26,7 +26,10 @@ public class Main {
 		try {
 			LinkedList<Entry> entrys = reader.read(new BufferedReader(new FileReader(Config.CSV_PATH)), options);
 			WeatherStats stats = new WeatherStats(entrys);
-			System.out.println( stats.getAverageTemperature() );
+			
+			for(Entry entry : stats.getFx()) {
+				System.out.println(entry.getValueAsDouble("FX"));
+			}
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
