@@ -3,9 +3,13 @@ package de.szut.weather.gui;
 import info.monitorenter.gui.chart.Chart2D;
 import info.monitorenter.gui.chart.IPointPainter;
 import info.monitorenter.gui.chart.ITrace2D;
+import info.monitorenter.gui.chart.ITracePainter;
 import info.monitorenter.gui.chart.ITracePoint2D;
+import info.monitorenter.gui.chart.TracePoint2D;
 import info.monitorenter.gui.chart.traces.Trace2DSimple;
+import info.monitorenter.util.Range;
 
+import java.awt.Dimension;
 import java.util.LinkedList;
 import java.util.Set;
 
@@ -13,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.ListModel;
 
 import de.szut.weather.models.Entry;
@@ -52,17 +57,19 @@ public class MainWindow {
 		highestWindSpeedTab.setName("Highest Windspeed");
 		
 		Chart2D highestWindSpeedChart = new Chart2D();
-		highestWindSpeedChart.setSize(300, 300);
+		highestWindSpeedChart.setPreferredSize(new Dimension( 300, 300) );
 		ITrace2D highestWindSpeedTrace = new Trace2DSimple();
 		highestWindSpeedChart.addTrace(highestWindSpeedTrace);
-		
 		LinkedList<Entry> fx = stats.getFx();
-		for(int i = 0, j = fx.size(); i < j; i++) {
-			highestWindSpeedTrace.addPoint(i, fx.get(i).getValueAsDouble("FX"));
-		}
 		
+		
+		for(Entry entry: fx){ //TODO calc bft and set as y, remove lines betweeen points, set date as date
+			TracePoint2D point = new TracePoint2D( entry.getValueAsDouble("Datum"), entry.getValueAsDouble("FX") );
+			highestWindSpeedTrace.addPoint(point);
+		}
 		highestWindSpeedTab.add(highestWindSpeedChart);
 		tabs.add(highestWindSpeedTab);
+		
 	}
 	
 	public void show() {
