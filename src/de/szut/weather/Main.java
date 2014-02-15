@@ -10,7 +10,7 @@ import javax.swing.SwingUtilities;
 import de.szut.weather.gui.MainWindow;
 import de.szut.weather.models.Entry;
 import de.szut.weather.parser.CSVReader;
-import de.szut.weather.stats.*;
+import de.szut.weather.stats.WeatherStats;
 
 public class Main {
 
