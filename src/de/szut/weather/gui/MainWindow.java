@@ -1,11 +1,14 @@
 package de.szut.weather.gui;
 
 import info.monitorenter.gui.chart.Chart2D;
+import info.monitorenter.gui.chart.IAxis;
 import info.monitorenter.gui.chart.IPointPainter;
 import info.monitorenter.gui.chart.ITrace2D;
 import info.monitorenter.gui.chart.ITracePoint2D;
 import info.monitorenter.gui.chart.traces.Trace2DSimple;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.util.LinkedList;
 import java.util.Set;
 
@@ -51,10 +54,15 @@ public class MainWindow {
 		JPanel highestWindSpeedTab = new JPanel();
 		highestWindSpeedTab.setName("Highest Windspeed");
 		
+		// TODO barchart
 		Chart2D highestWindSpeedChart = new Chart2D();
-		highestWindSpeedChart.setSize(300, 300);
+		highestWindSpeedChart.setPreferredSize(new Dimension(800, 520));
+		highestWindSpeedChart.setBackground(Color.getColor("#EEEEEE"));
 		ITrace2D highestWindSpeedTrace = new Trace2DSimple();
 		highestWindSpeedChart.addTrace(highestWindSpeedTrace);
+		
+		IAxis xAxis = highestWindSpeedChart.getAxisX();
+		xAxis.setTitle("");
 		
 		LinkedList<Entry> fx = stats.getFx();
 		for(int i = 0, j = fx.size(); i < j; i++) {
