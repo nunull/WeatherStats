@@ -8,9 +8,9 @@ import java.util.LinkedList;
 import javax.swing.SwingUtilities;
 
 import de.szut.weather.gui.MainWindow;
-import de.szut.weather.models.Entry;
-import de.szut.weather.parser.CSVReader;
-import de.szut.weather.stats.WeatherStats;
+import de.szut.weather.models.*;
+import de.szut.weather.parser.*;
+import de.szut.weather.stats.*;
 
 public class Main {
 

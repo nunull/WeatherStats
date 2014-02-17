@@ -22,8 +22,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
 
-import de.szut.weather.models.Entry;
-import de.szut.weather.stats.WeatherStats;
+import de.szut.weather.models.*;
+import de.szut.weather.stats.*;
 
 public class MainWindow {
 	private WeatherStats stats;
