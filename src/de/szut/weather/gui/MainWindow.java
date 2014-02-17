@@ -8,6 +8,7 @@ import info.monitorenter.gui.chart.ITracePainter;
 import info.monitorenter.gui.chart.ITracePoint2D;
 import info.monitorenter.gui.chart.TracePoint2D;
 import info.monitorenter.gui.chart.traces.Trace2DSimple;
+import info.monitorenter.gui.chart.traces.painters.TracePainterVerticalBar;
 import info.monitorenter.util.Range;
 
 import java.awt.Color;
@@ -65,6 +66,7 @@ public class MainWindow {
 		highestWindSpeedChart.setBackground(Color.getColor("#EEEEEE"));
 		ITrace2D highestWindSpeedTrace = new Trace2DSimple();
 		highestWindSpeedChart.addTrace(highestWindSpeedTrace);
+		highestWindSpeedTrace.setTracePainter(new TracePainterVerticalBar(20, highestWindSpeedChart));
 		
 		IAxis xAxis = highestWindSpeedChart.getAxisX();
 		xAxis.setTitle("");
