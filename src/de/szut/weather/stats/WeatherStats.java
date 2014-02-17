@@ -30,7 +30,7 @@ public class WeatherStats implements Stats {
 		for(Entry entry : entrys) { //split up first loop for better performance (tm & shk)
 			// average temperature ----- highest snow height
 				tm += entry.getValueAsDouble("TM");
-				if (entry.getValueAsDouble("SHK") > shk.getValueAsDouble("SHK") ) shk.put("SHK", entry.getValueAsString("SHK") );
+				if (entry.getValueAsDouble("SHK") > shk.getValueAsDouble("SHK") ) shk = entry;
 
 			//highest wind speed
 			try {

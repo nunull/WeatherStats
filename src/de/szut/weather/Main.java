@@ -26,7 +26,7 @@ public class Main {
 					CSVParser reader = new CSVParser();
 					LinkedList<Entry> entrys = reader.parse(new BufferedReader(new FileReader(Config.CSV_PATH)));
 					WeatherStats stats = new WeatherStats(entrys);
-
+					System.out.println(stats.getShk().getValueAsString("Datum"));
 					MainWindow mainW = new MainWindow(stats);
 					mainW.show();
 				} catch (FileNotFoundException e) {
