@@ -59,7 +59,6 @@ public class MainWindow {
 		JPanel highestWindSpeedTab = new JPanel();
 		highestWindSpeedTab.setName("Highest Windspeed");
 		
-		// TODO barchart
 		Chart2D highestWindSpeedChart = new Chart2D();
 		
 		highestWindSpeedChart.setPreferredSize(new Dimension(800, 520));
@@ -70,16 +69,19 @@ public class MainWindow {
 		
 		IAxis xAxis = highestWindSpeedChart.getAxisX();
 		xAxis.setTitle("");
+		
 		LinkedList<Entry> fx = stats.getFx();
-		
-		
-		for(Entry entry: fx){ //TODO calc bft and set as y, remove lines betweeen points, set date as date
-			TracePoint2D point = new TracePoint2D( entry.getValueAsDouble("Datum"), entry.getValueAsDouble("FX") );
-			highestWindSpeedTrace.addPoint(point);
+		for(Entry entry : fx){ //TODO calc bft and set as y, remove lines betweeen points, set date as date
+			highestWindSpeedTrace.addPoint(new TracePoint2D( entry.getValueAsDouble("Datum"), entry.getValueAsDouble("FX") ));
 		}
+		
 		highestWindSpeedTab.add(highestWindSpeedChart);
 		tabs.add(highestWindSpeedTab);
 		
+		JPanel test = new JPanel();
+		test.setName("Test");
+		
+		tabs.add(test);
 	}
 	
 	public void show() {
