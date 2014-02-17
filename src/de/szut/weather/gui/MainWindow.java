@@ -10,10 +10,7 @@ import info.monitorenter.gui.chart.TracePoint2D;
 import info.monitorenter.gui.chart.traces.Trace2DSimple;
 import info.monitorenter.util.Range;
 
-<<<<<<< HEAD
 import java.awt.Color;
-=======
->>>>>>> 63bb8de15b761cdb765829ca4c9808fe1ae52e7b
 import java.awt.Dimension;
 import java.util.LinkedList;
 import java.util.Set;
