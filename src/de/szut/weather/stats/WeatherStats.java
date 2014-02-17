@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 import de.szut.weather.models.*;
 
-public class WeatherStats {
+public class WeatherStats implements Stats {
 
 	private LinkedList<Entry> entrys;
 
@@ -80,6 +80,7 @@ public class WeatherStats {
 		tm = tm / entrys.size();
 	}
 
+	@Override
 	public LinkedList<Entry> getEntrys() {
 		return entrys;
 	}

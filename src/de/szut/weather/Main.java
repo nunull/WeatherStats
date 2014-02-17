@@ -23,8 +23,8 @@ public class Main {
 			@Override
 			public void run() {
 				try {
-					CSVReader reader = new CSVReader();
-					LinkedList<Entry> entrys = reader.read(new BufferedReader(new FileReader(Config.CSV_PATH)));
+					CSVParser reader = new CSVParser();
+					LinkedList<Entry> entrys = reader.parse(new BufferedReader(new FileReader(Config.CSV_PATH)));
 					WeatherStats stats = new WeatherStats(entrys);
 
 					MainWindow mainW = new MainWindow(stats);
