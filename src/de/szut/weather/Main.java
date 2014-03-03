@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.LinkedList;
 
+import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
 
 import de.szut.weather.gui.MainWindow;
@@ -24,7 +25,7 @@ public class Main {
 			public void run() {
 				try {
 					CSVParser reader = new CSVParser();
-					LinkedList<Entry> entrys = reader.parse(new BufferedReader(new FileReader(Config.CSV_PATH)));
+					LinkedList<Entry> entrys = reader.parse(new BufferedReader(new FileReader(Config.CSVPATH)));
 					WeatherStats stats = new WeatherStats(entrys);
 					System.out.println(stats.getShk().getValueAsString("Datum"));
 					MainWindow mainW = new MainWindow(stats);

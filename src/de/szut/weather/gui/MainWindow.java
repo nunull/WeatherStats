@@ -7,21 +7,34 @@ import info.monitorenter.gui.chart.ITrace2D;
 import info.monitorenter.gui.chart.ITracePainter;
 import info.monitorenter.gui.chart.ITracePoint2D;
 import info.monitorenter.gui.chart.TracePoint2D;
+import info.monitorenter.gui.chart.labelformatters.LabelFormatterDate;
 import info.monitorenter.gui.chart.traces.Trace2DSimple;
+import info.monitorenter.gui.chart.traces.painters.TracePainterDisc;
 import info.monitorenter.gui.chart.traces.painters.TracePainterVerticalBar;
 import info.monitorenter.util.Range;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Set;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.xml.PieDatasetHandler;
 
 import de.szut.weather.models.*;
 import de.szut.weather.stats.*;
@@ -56,32 +69,39 @@ public class MainWindow {
 	private void buildTabs() {
 		tabs = new LinkedList<JPanel>();
 		
+		//highest windspeed
 		JPanel highestWindSpeedTab = new JPanel();
-		highestWindSpeedTab.setName("Highest Windspeed");
-		
-		Chart2D highestWindSpeedChart = new Chart2D();
-		
-		highestWindSpeedChart.setPreferredSize(new Dimension(800, 520));
-		highestWindSpeedChart.setBackground(Color.getColor("#EEEEEE"));
-		ITrace2D highestWindSpeedTrace = new Trace2DSimple();
-		highestWindSpeedChart.addTrace(highestWindSpeedTrace);
-		highestWindSpeedTrace.setTracePainter(new TracePainterVerticalBar(20, highestWindSpeedChart));
-		
-		IAxis xAxis = highestWindSpeedChart.getAxisX();
-		xAxis.setTitle("");
-		
+		highestWindSpeedTab.setName("Highest Windsped");
+		DefaultCategoryDataset BarDataset = new DefaultCategoryDataset();
+		JFreeChart highestWindSpeedChart = ChartFactory.createBarChart3D("Highest Windspeed", "date", "windspeed", BarDataset);
 		LinkedList<Entry> fx = stats.getFx();
-		for(Entry entry : fx){ //TODO calc bft and set as y, remove lines betweeen points, set date as date
-			highestWindSpeedTrace.addPoint(new TracePoint2D( entry.getValueAsDouble("Datum"), entry.getValueAsDouble("FX") ));
+		for(Entry entry : fx){
+			BarDataset.addValue(entry.getValueAsDouble("FX"), entry.getValueAsDouble("FX"), (entry.getValueAsGregorianCalendar("Datum").getTime().toLocaleString() ) );
 		}
-		
-		highestWindSpeedTab.add(highestWindSpeedChart);
+		ChartPanel Barcp = new ChartPanel(highestWindSpeedChart); 
+		highestWindSpeedTab.add(Barcp);
 		tabs.add(highestWindSpeedTab);
 		
-		JPanel test = new JPanel();
-		test.setName("Test");
+		//highest temperatures
+		JPanel highestTemperaturesTab = new JPanel();
+		highestTemperaturesTab.setName("Highest Temperatures");
+		DefaultPieDataset PieDataset = new DefaultPieDataset();
+		JFreeChart highestTemperaturesChart = ChartFactory.createPieChart3D("Highest Temperature", PieDataset);
 		
-		tabs.add(test);
+		LinkedList<Entry> tx = stats.getTx();
+		for(Entry entry : tx){
+			PieDataset.setValue(entry.getValueAsDouble("TX") + " degree\n" + entry.getValueAsGregorianCalendar("Datum").getTime(), entry.getValueAsDouble("TX"));
+		}
+		ChartPanel Piecp = new ChartPanel(highestTemperaturesChart);
+		highestTemperaturesTab.add(Piecp);
+		tabs.add(highestTemperaturesTab);
+		
+		//all temperatures, dynamic
+		JPanel allTemperaturesTab = new JPanel();
+		allTemperaturesTab.setName("Temperature Overview");
+//		 lineDataset
+//		JFreeChart allTemperaturesChart = ChartFactory.createLineChart("Temperature Overview", "temperature", "date", lineDataset);
+		
 	}
 	
 	public void show() {
