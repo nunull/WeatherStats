@@ -35,6 +35,7 @@ public class MainWindow {
 		mainFrame = new JFrame("WeatherStats");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setBounds(50, 50, 800, 600);
+		mainFrame.setLocationRelativeTo(null);
 		
 		buildTabs();
 		buildTabbedPane();
