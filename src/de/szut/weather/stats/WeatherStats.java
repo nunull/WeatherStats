@@ -9,20 +9,34 @@ import java.util.TreeMap;
 
 import de.szut.weather.models.Entry;
 
+/**
+ * Wrapper class for statistic functionality. 
+ */
 public class WeatherStats implements Stats {
-
 	private LinkedList<Entry> entrys;
 
-	private double tm; //average temperature
-	private Entry shk; //day with highest snow
-	private LinkedList<Entry> fx; //five days, highest wind speed
-	private LinkedList<Map.Entry<String, Double>> tx; //five hottest months
+	// The average temperature.
+	private double tm;
+	// The day with the highest snow-height.
+	private Entry shk;
+	// The five days with the highest wind speed.
+	private LinkedList<Entry> fx;
+	// The five hottest months.
+	private LinkedList<Map.Entry<String, Double>> tx;
 
+	/**
+	 * Constructor.
+	 * 
+	 * @param entrys The entrys.
+	 */
 	public WeatherStats(LinkedList<Entry> entrys) {
 		this.entrys = entrys;
 		calcStats();
 	}
 
+	/**
+	 * Calculate the statistics.
+	 */
 	private void calcStats() {
 		fx = new LinkedList<Entry>();
 		tx = new LinkedList<Map.Entry<String, Double>>();
@@ -74,7 +88,6 @@ public class WeatherStats implements Stats {
 					fx.add(0, entry);
 				}
 			} catch(NullPointerException e) {
-				// TODO
 			}
 		}
 
@@ -89,7 +102,6 @@ public class WeatherStats implements Stats {
 						fx.add(i, entry);
 					}
 				} catch(NullPointerException e) {
-					// TODO
 				}
 			}
 		}
@@ -97,23 +109,46 @@ public class WeatherStats implements Stats {
 		tm = tm / entrys.size();
 	}
 
+	/**
+	 * Returns the given entrys.
+	 */
 	@Override
 	public LinkedList<Entry> getEntrys() {
 		return entrys;
 	}
 
+	/**
+	 * Returns the average temperature.
+	 * 
+	 * @return The temperature.
+	 */
 	public double getTm() {
 		return tm;
 	}
 
+	/**
+	 * Returns the five days with the highest wind speeds.
+	 * 
+	 * @return A list containing the entrys.
+	 */
 	public LinkedList<Entry> getFx() {
 		return fx;
 	}
 
+	/**
+	 * Returns the five hottest months.
+	 * 
+	 * @return A list containing map-entrys representing the five months.
+	 */
 	public LinkedList<java.util.Map.Entry<String, Double>> getTx() {
 		return tx;
 	}
 
+	/**
+	 * Returns the highest snow-height.
+	 * 
+	 * @return The entry with the highest snow-height.
+	 */
 	public Entry getShk() {
 		return shk;
 	}

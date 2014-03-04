@@ -3,9 +3,15 @@ package de.szut.weather.models;
 import java.util.GregorianCalendar;
 import java.util.TreeMap;
 
+/**
+ * Container for a statistic-entry.
+ */
 public class Entry {
 	private TreeMap<String, String> values;
 	
+	/**
+	 * Constructor.
+	 */
 	public Entry() {
 		values = new TreeMap<String, String>();
 	}
@@ -23,6 +29,7 @@ public class Entry {
 	}
 	
 	/**
+	 * Returns the value as a string.
 	 * 
 	 * @param key The key.
 	 * @return the value mapped to the key or null.
@@ -32,6 +39,7 @@ public class Entry {
 	}
 	
 	/**
+	 * Returns the value as a double or null if there is no value at the specific key or it can not be parsed.
 	 * 
 	 * @param key The key.
 	 * @return the value mapped to the key or null.
@@ -47,6 +55,7 @@ public class Entry {
 	}
 	
 	/**
+	 * Returns the value as an GregorianCalendar.
 	 * 
 	 * @param key The key.
 	 * @return the value mapped to the key.

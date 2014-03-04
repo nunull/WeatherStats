@@ -15,12 +15,20 @@ import org.jfree.data.general.DefaultPieDataset;
 import de.szut.weather.models.Entry;
 import de.szut.weather.stats.WeatherStats;
 
+/**
+ * Container class for the "main"-window which shows the charts.
+ */
 public class MainWindow {
 	private WeatherStats stats;
 	private JFrame mainFrame;
 	private JTabbedPane tabbedPane;
 	private LinkedList<JPanel> tabs;
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param stats The statistics to be visualized.
+	 */
 	public MainWindow(WeatherStats stats) {
 		this.stats = stats;
 		
@@ -32,6 +40,9 @@ public class MainWindow {
 		buildTabbedPane();
 	}
 	
+	/**
+	 * Builds the tab-pane.
+	 */
 	private void buildTabbedPane() {
 		tabbedPane = new JTabbedPane();
 		
@@ -42,6 +53,10 @@ public class MainWindow {
 		mainFrame.add(tabbedPane);
 	}
 	
+	/**
+	 * Builds the single tabs.
+	 */
+	@SuppressWarnings("deprecation")
 	private void buildTabs() {
 		tabs = new LinkedList<JPanel>();
 		
@@ -80,6 +95,9 @@ public class MainWindow {
 		
 	}
 	
+	/**
+	 * Shows the GUI.
+	 */
 	public void show() {
 		mainFrame.setVisible(true);
 	}

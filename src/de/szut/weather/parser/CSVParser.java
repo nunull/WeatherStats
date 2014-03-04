@@ -6,7 +6,13 @@ import java.util.LinkedList;
 
 import de.szut.weather.models.Entry;
 
+/**
+ * The wrapper-class for reading and parsing CSV-files.
+ */
 public class CSVParser implements Parser {
+	/**
+	 * Parse a specific CSV-file.
+	 */
 	@Override
 	public LinkedList<Entry> parse (BufferedReader br) {
 		try {
