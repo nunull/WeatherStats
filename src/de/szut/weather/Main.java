@@ -1,5 +1,6 @@
 package de.szut.weather;
 
+import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -9,6 +10,7 @@ import java.util.concurrent.ExecutionException;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
@@ -36,7 +38,8 @@ public class Main {
 			@Override
 			public void run() {
 				JFileChooser fileChooser = new JFileChooser(".");
-				fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("CSV", "csv"));
+
+				fileChooser.setFileFilter(new FileNameExtensionFilter("CSV", "csv"));
 				fileChooser.setAcceptAllFileFilterUsed(false);
 
 				if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
@@ -50,9 +53,8 @@ public class Main {
 					waitDialog.setLocationRelativeTo(null);
 					waitDialog.setResizable(false);
 					waitDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-					waitDialog.setVisible(true);
-
 					waitDialog.getContentPane().add(waitLabel);
+					waitDialog.setVisible(true);
 
 					SwingWorker<WeatherStats, Object> swingWorker = new SwingWorker<WeatherStats, Object>() {
 
@@ -60,7 +62,7 @@ public class Main {
 						protected WeatherStats doInBackground()
 								throws Exception {
 							CSVParser reader = new CSVParser();
-							LinkedList<Entry> entrys = reader.parse(new BufferedReader(new FileReader(file.getAbsolutePath())));
+							LinkedList<Entry> entrys = reader.parse(new BufferedReader(new FileReader(file)));
 
 							return new WeatherStats(entrys);
 						}
