@@ -88,9 +88,9 @@ public class MainWindow {
 		DefaultPieDataset PieDataset = new DefaultPieDataset();
 		JFreeChart highestTemperaturesChart = ChartFactory.createPieChart3D("Highest Temperature", PieDataset);
 		
-		LinkedList<Entry> tx = stats.getTx();
-		for(Entry entry : tx){
-			PieDataset.setValue(entry.getValueAsDouble("TX") + " degree\n" + entry.getValueAsGregorianCalendar("Datum").getTime(), entry.getValueAsDouble("TX"));
+		LinkedList<java.util.Map.Entry<String, Double>> tx = stats.getTx();
+		for(java.util.Map.Entry<String, Double> entry : tx){
+			PieDataset.setValue(entry.getValue() + " degree\n" + entry.getKey(), entry.getValue());
 		}
 		ChartPanel Piecp = new ChartPanel(highestTemperaturesChart);
 		highestTemperaturesTab.add(Piecp);
