@@ -1,43 +1,19 @@
 package de.szut.weather.gui;
 
-import info.monitorenter.gui.chart.Chart2D;
-import info.monitorenter.gui.chart.IAxis;
-import info.monitorenter.gui.chart.IPointPainter;
-import info.monitorenter.gui.chart.ITrace2D;
-import info.monitorenter.gui.chart.ITracePainter;
-import info.monitorenter.gui.chart.ITracePoint2D;
-import info.monitorenter.gui.chart.TracePoint2D;
-import info.monitorenter.gui.chart.labelformatters.LabelFormatterDate;
-import info.monitorenter.gui.chart.traces.Trace2DSimple;
-import info.monitorenter.gui.chart.traces.painters.TracePainterDisc;
-import info.monitorenter.gui.chart.traces.painters.TracePainterVerticalBar;
-import info.monitorenter.util.Range;
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedList;
-import java.util.Set;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-import javax.swing.ListModel;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.xml.PieDatasetHandler;
 
-import de.szut.weather.models.*;
-import de.szut.weather.stats.*;
+import de.szut.weather.models.Entry;
+import de.szut.weather.stats.WeatherStats;
 
 public class MainWindow {
 	private WeatherStats stats;
@@ -71,7 +47,7 @@ public class MainWindow {
 		
 		//highest windspeed
 		JPanel highestWindSpeedTab = new JPanel();
-		highestWindSpeedTab.setName("Highest Windsped");
+		highestWindSpeedTab.setName("Highest Windspeed");
 		DefaultCategoryDataset BarDataset = new DefaultCategoryDataset();
 		JFreeChart highestWindSpeedChart = ChartFactory.createBarChart3D("Highest Windspeed", "date", "windspeed", BarDataset);
 		LinkedList<Entry> fx = stats.getFx();

@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.TreeMap;
 
-import de.szut.weather.models.*;
+import de.szut.weather.models.Entry;
 
 public class WeatherStats implements Stats {
 
@@ -60,10 +60,6 @@ public class WeatherStats implements Stats {
 					tx.add(i, entry);
 				}
 			}
-		}
-		
-		for(Map.Entry<String, Double> entry : tx) {
-			System.out.println(entry.getKey() + ":" + entry.getValue());
 		}
 
 		for(Entry entry : entrys) { //split up first loop for better performance (tm & shk)

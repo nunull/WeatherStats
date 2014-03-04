@@ -2,10 +2,15 @@
 // Beispiel: drei Grafiken mit JChart2D
 // M.Martens 17.02.2014
 
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.*;
-import javax.swing.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.GradientPaint;
+import java.awt.GridLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
+import javax.swing.JFrame;
 
 public class Charts2D extends JFrame 
 {

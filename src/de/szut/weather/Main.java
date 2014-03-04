@@ -5,13 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.LinkedList;
 
-import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
 
 import de.szut.weather.gui.MainWindow;
-import de.szut.weather.models.*;
-import de.szut.weather.parser.*;
-import de.szut.weather.stats.*;
+import de.szut.weather.models.Entry;
+import de.szut.weather.parser.CSVParser;
+import de.szut.weather.stats.WeatherStats;
 
 public class Main {
 
