@@ -35,7 +35,8 @@ public class DynamicLineChart extends ApplicationFrame implements ActionListener
      *
      * @param title  the frame title.
      */
-    public DynamicLineChart(final String title) {
+    @SuppressWarnings("deprecation")
+	public DynamicLineChart(final String title) {
 
         super(title);
         this.series = new TimeSeries("Random Data", Millisecond.class);
