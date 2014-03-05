@@ -49,12 +49,14 @@ public class Main {
 					waitLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 					final JDialog waitDialog = new JDialog();
-					waitDialog.setSize(300, 200);
+					waitDialog.setSize(200, 100);
 					waitDialog.setLocationRelativeTo(null);
 					waitDialog.setResizable(false);
+					waitDialog.setUndecorated(true);
 					waitDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 					waitDialog.getContentPane().add(waitLabel);
 					waitDialog.setVisible(true);
+	
 
 					SwingWorker<WeatherStats, Object> swingWorker = new SwingWorker<WeatherStats, Object>() {
 
