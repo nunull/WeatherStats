@@ -32,6 +32,7 @@ public class WeatherStats implements Stats {
 
 	private Iterator<Entry> itr;
 	private LinkedList<Entry> dynamicList;
+	private static int DYNAMICLISTSIZEBUFFER = 1000;
 
 	/**
 	 * Constructor.
@@ -121,7 +122,7 @@ public class WeatherStats implements Stats {
 		//dynamic list
 		dynamicList.add(entrys.getFirst());
 		itr = entrys.listIterator(1);
-		for (int i = 0; i<1000; i++){
+		for (int i = 0; i<DYNAMICLISTSIZEBUFFER; i++){
 			if (itr.hasNext()) dynamicList.add(itr.next());
 			else dynamicList.add(entrys.getFirst());
 		}

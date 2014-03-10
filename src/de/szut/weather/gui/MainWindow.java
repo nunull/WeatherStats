@@ -105,7 +105,7 @@ public class MainWindow {
 		for ( Entry entry : stats.getDynamicList() ){
 			lineDataset.addValue(entry.getValueAsDouble("TM"), entry.getValueAsDouble("TM"), String.valueOf( entry.getValueAsGregorianCalendar("Datum").getTime().getYear() ));
 		}
-		final Timer timer = new Timer(10, new ActionListener() {
+		final Timer timer = new Timer(300, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				lineDataset.clear();
@@ -121,18 +121,15 @@ public class MainWindow {
 		allTemperaturesTab.addFocusListener(new FocusListener() {
 			@Override
 			public void focusLost(FocusEvent e) {
-				System.out.println("losr");
 				timer.stop();
 			}			
 			@Override
 			public void focusGained(FocusEvent e) {
-				System.out.println("gained");
 				timer.start();
 			}
 		});
 		allTemperaturesTab.setFocusable(true);
 		tabs.add(allTemperaturesTab);
-		timer.start();
 	}
 	
 	/**
