@@ -2,6 +2,8 @@ package de.szut.weather.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.LinkedList;
 
 import javax.swing.JFrame;
@@ -49,6 +51,7 @@ public class MainWindow {
 	 */
 	private void buildTabbedPane() {
 		tabbedPane = new JTabbedPane();
+		tabbedPane.setFocusable(false);
 		
 		for(JPanel tab : tabs) {
 			tabbedPane.addTab(tab.getName(), tab);
@@ -75,6 +78,7 @@ public class MainWindow {
 		}
 		ChartPanel Barcp = new ChartPanel(highestWindSpeedChart); 
 		highestWindSpeedTab.add(Barcp);
+		highestWindSpeedTab.setFocusable(true);
 		tabs.add(highestWindSpeedTab);
 		
 		//highest temperatures
@@ -89,6 +93,7 @@ public class MainWindow {
 		}
 		ChartPanel Piecp = new ChartPanel(highestTemperaturesChart);
 		highestTemperaturesTab.add(Piecp);
+		highestTemperaturesTab.setFocusable(true);
 		tabs.add(highestTemperaturesTab);
 		
 		//all temperatures, dynamic
@@ -100,7 +105,7 @@ public class MainWindow {
 		for ( Entry entry : stats.getDynamicList() ){
 			lineDataset.addValue(entry.getValueAsDouble("TM"), entry.getValueAsDouble("TM"), String.valueOf( entry.getValueAsGregorianCalendar("Datum").getTime().getYear() ));
 		}
-		Timer timer = new Timer(10, new ActionListener() {
+		final Timer timer = new Timer(10, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				lineDataset.clear();
@@ -113,6 +118,19 @@ public class MainWindow {
 		JFreeChart alltemperaturesChart = ChartFactory.createLineChart("Temperature Overview", "date", "temperature", lineDataset);
 		ChartPanel allTemperatureCP = new ChartPanel(alltemperaturesChart);
 		allTemperaturesTab.add(allTemperatureCP);
+		allTemperaturesTab.addFocusListener(new FocusListener() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				System.out.println("losr");
+				timer.stop();
+			}			
+			@Override
+			public void focusGained(FocusEvent e) {
+				System.out.println("gained");
+				timer.start();
+			}
+		});
+		allTemperaturesTab.setFocusable(true);
 		tabs.add(allTemperaturesTab);
 		timer.start();
 	}
