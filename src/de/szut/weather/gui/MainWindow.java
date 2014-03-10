@@ -1,10 +1,13 @@
 package de.szut.weather.gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.Timer;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -91,9 +94,27 @@ public class MainWindow {
 		//all temperatures, dynamic
 		JPanel allTemperaturesTab = new JPanel();
 		allTemperaturesTab.setName("Temperature Overview");
-//		 lineDataset
-//		JFreeChart allTemperaturesChart = ChartFactory.createLineChart("Temperature Overview", "temperature", "date", lineDataset);
 		
+		final DefaultCategoryDataset lineDataset = new DefaultCategoryDataset();
+		
+		for ( Entry entry : stats.getDynamicList() ){
+			lineDataset.addValue(entry.getValueAsDouble("TM"), entry.getValueAsDouble("TM"), String.valueOf( entry.getValueAsGregorianCalendar("Datum").getTime().getYear() ));
+		}
+		Timer timer = new Timer(10, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				lineDataset.clear();
+				stats.dynamicChartRefresh();
+				for ( Entry entry : stats.getDynamicList() ){
+					lineDataset.addValue(entry.getValueAsDouble("TM"), String.valueOf( entry.getValueAsGregorianCalendar("Datum").getTime().getYear()+1900), entry.getValueAsGregorianCalendar("Datum").getTime().toLocaleString());
+				}
+			}
+		});
+		JFreeChart alltemperaturesChart = ChartFactory.createLineChart("Temperature Overview", "date", "temperature", lineDataset);
+		ChartPanel allTemperatureCP = new ChartPanel(alltemperaturesChart);
+		allTemperaturesTab.add(allTemperatureCP);
+		tabs.add(allTemperaturesTab);
+		timer.start();
 	}
 	
 	/**

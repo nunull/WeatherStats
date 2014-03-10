@@ -65,7 +65,6 @@ public class Main {
 								throws Exception {
 							CSVParser reader = new CSVParser();
 							LinkedList<Entry> entrys = reader.parse(new BufferedReader(new FileReader(file)));
-
 							return new WeatherStats(entrys);
 						}
 
@@ -74,7 +73,6 @@ public class Main {
 							MainWindow mainW;
 							try {
 								waitDialog.setVisible(false);
-
 								mainW = new MainWindow(get());
 								mainW.show();
 							} catch (InterruptedException e) {
