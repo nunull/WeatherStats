@@ -82,6 +82,8 @@ public class WeatherStats implements Stats {
 			for(Map.Entry<String, Double> entry : monthlyTX.entrySet()) {
 				if(entry.getValue() > tx.get(i).getValue() && !tx.contains(entry)) {
 					tx.remove(i);
+					double value = Math.round( entry.getValue()*100 );
+					entry.setValue(value/100);
 					tx.add(i, entry);
 				}
 			}
