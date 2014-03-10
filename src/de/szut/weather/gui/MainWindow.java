@@ -6,6 +6,8 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.LinkedList;
 
+import javax.swing.AbstractAction;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -28,7 +30,7 @@ public class MainWindow {
 	private JFrame mainFrame;
 	private JTabbedPane tabbedPane;
 	private LinkedList<JPanel> tabs;
-	
+
 	/**
 	 * Constructor.
 	 * 
@@ -36,37 +38,37 @@ public class MainWindow {
 	 */
 	public MainWindow(WeatherStats stats) {
 		this.stats = stats;
-		
+
 		mainFrame = new JFrame("WeatherStats");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setBounds(50, 50, 800, 600);
 		mainFrame.setLocationRelativeTo(null);
-		
+
 		buildTabs();
 		buildTabbedPane();
 	}
-	
+
 	/**
 	 * Builds the tab-pane.
 	 */
 	private void buildTabbedPane() {
 		tabbedPane = new JTabbedPane();
 		tabbedPane.setFocusable(false);
-		
+
 		for(JPanel tab : tabs) {
 			tabbedPane.addTab(tab.getName(), tab);
 		}
-		
+
 		mainFrame.add(tabbedPane);
 	}
-	
+
 	/**
 	 * Builds the single tabs.
 	 */
 	@SuppressWarnings("deprecation")
 	private void buildTabs() {
 		tabs = new LinkedList<JPanel>();
-		
+
 		//highest windspeed
 		JPanel highestWindSpeedTab = new JPanel();
 		highestWindSpeedTab.setName("Highest Windspeed");
@@ -80,13 +82,13 @@ public class MainWindow {
 		highestWindSpeedTab.add(Barcp);
 		highestWindSpeedTab.setFocusable(true);
 		tabs.add(highestWindSpeedTab);
-		
+
 		//highest temperatures
 		JPanel highestTemperaturesTab = new JPanel();
 		highestTemperaturesTab.setName("Highest Temperatures");
 		DefaultPieDataset PieDataset = new DefaultPieDataset();
 		JFreeChart highestTemperaturesChart = ChartFactory.createPieChart3D("Highest Temperature", PieDataset);
-		
+
 		LinkedList<java.util.Map.Entry<String, Double>> tx = stats.getTx();
 		for(java.util.Map.Entry<String, Double> entry : tx){
 			PieDataset.setValue(entry.getValue() + " degree\n" + entry.getKey(), entry.getValue());
@@ -95,13 +97,13 @@ public class MainWindow {
 		highestTemperaturesTab.add(Piecp);
 		highestTemperaturesTab.setFocusable(true);
 		tabs.add(highestTemperaturesTab);
-		
+
 		//all temperatures, dynamic
 		JPanel allTemperaturesTab = new JPanel();
 		allTemperaturesTab.setName("Temperature Overview");
-		
+
 		final DefaultCategoryDataset lineDataset = new DefaultCategoryDataset();
-		
+
 		for ( Entry entry : stats.getDynamicList() ){
 			lineDataset.addValue(entry.getValueAsDouble("TM"), String.valueOf( entry.getValueAsGregorianCalendar("Datum").getTime().getYear()+1900), entry.getValueAsGregorianCalendar("Datum").getTime().toLocaleString());
 		}
@@ -130,8 +132,50 @@ public class MainWindow {
 		});
 		allTemperaturesTab.setFocusable(true);
 		tabs.add(allTemperaturesTab);
+
+		//DiaglogViewer
+		JPanel dialogTab = new JPanel();
+		dialogTab.setName("Dialogs");
+
+		AbstractAction action = new AbstractAction(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				this.putValue(NAME, arg0.getActionCommand() );
+				Object[] objects = null;
+				switch(arg0.getActionCommand()) {
+				case "TM":{
+					objects = new Object[] {stats.getTm()};
+					DialogViewer.showTm(objects);
+					break;
+				}
+				case "FX":{
+					int i = 0;
+					for (Entry entry : stats.getFx()){
+						objects[i] = entry.getValueAsGregorianCalendar("Datum").getTime().toLocaleString();
+						i++;
+						objects[i] = entry.getValueAsDouble("TM");
+						i++;
+					}
+					break;
+				}
+				case "TX":{
+					break;
+				}
+				case "SHK":{
+					break;
+				}
+				}
+			}
+		};
+
+		JButton fxButton = new JButton(action);
+		fxButton.setActionCommand("FX");
+		dialogTab.add(fxButton);
+		tabs.add(dialogTab);
+
+
 	}
-	
+
 	/**
 	 * Shows the GUI.
 	 */
