@@ -1,6 +1,5 @@
 *.class
 bin
-Config.java
 *.class
 
 src/de/szut/weather/Config.java
