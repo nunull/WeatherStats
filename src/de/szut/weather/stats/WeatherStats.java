@@ -1,11 +1,17 @@
 package de.szut.weather.stats;
 
+import java.awt.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.TreeMap;
+
+import javax.swing.Timer;
 
 import de.szut.weather.models.Entry;
 
@@ -24,6 +30,10 @@ public class WeatherStats implements Stats {
 	// The five hottest months.
 	private LinkedList<Map.Entry<String, Double>> tx;
 
+	private Iterator<Entry> itr;
+	private LinkedList<Entry> dynamicList;
+	private static int DYNAMICLISTSIZEBUFFER = 1000;
+
 	/**
 	 * Constructor.
 	 * 
@@ -41,9 +51,10 @@ public class WeatherStats implements Stats {
 		fx = new LinkedList<Entry>();
 		tx = new LinkedList<Map.Entry<String, Double>>();
 		shk = entrys.getFirst();
+		dynamicList = new LinkedList<Entry>();
 
 		fx.add(entrys.getFirst());
-		
+
 		// Calculate monthly TX
 		TreeMap<String, Double> monthlyTX = new TreeMap<>();
 		TreeMap<String, Integer> monthlyTXCount = new TreeMap<>();
@@ -51,26 +62,28 @@ public class WeatherStats implements Stats {
 			GregorianCalendar date = entry.getValueAsGregorianCalendar("Datum");
 			DateFormat dateFormat = new SimpleDateFormat("MMM yyyy");
 			String key = dateFormat.format(date.getTime());
-			
+
 			if(monthlyTX.get(key) == null) {
 				monthlyTX.put(key, 0.d);
 				monthlyTXCount.put(key, 0);
 			}
-			
+
 			monthlyTX.put(key, monthlyTX.get(key) + entry.getValueAsDouble("TX"));
 			monthlyTXCount.put(key, monthlyTXCount.get(key)+1);
 		}
 		for(String key : monthlyTX.keySet()) {
 			monthlyTX.put(key, monthlyTX.get(key)/monthlyTXCount.get(key));
 		}
-		
+
 		// Calculate hottest five months
 		for(int i = 0; i < 5; i++) {
 			tx.add(i, monthlyTX.firstEntry());
-			
+
 			for(Map.Entry<String, Double> entry : monthlyTX.entrySet()) {
 				if(entry.getValue() > tx.get(i).getValue() && !tx.contains(entry)) {
 					tx.remove(i);
+					double value = Math.round( entry.getValue()*100 );
+					entry.setValue(value/100);
 					tx.add(i, entry);
 				}
 			}
@@ -105,8 +118,27 @@ public class WeatherStats implements Stats {
 				}
 			}
 		}
-		
+
 		tm = tm / entrys.size();
+
+		//dynamic list
+		dynamicList.add(entrys.getFirst());
+		itr = entrys.listIterator(1);
+		for (int i = 0; i<DYNAMICLISTSIZEBUFFER; i++){
+			if (itr.hasNext()) dynamicList.add(itr.next());
+			else dynamicList.add(entrys.getFirst());
+		}
+	}
+
+	public void dynamicChartRefresh (){
+		dynamicList.remove();
+		if (itr.hasNext()) dynamicList.add(itr.next());
+		else dynamicList.add(entrys.getFirst());
+
+	}
+
+	public LinkedList<Entry> getDynamicList(){
+		return dynamicList;
 	}
 
 	/**
