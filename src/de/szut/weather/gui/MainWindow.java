@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.AbstractAction;
@@ -19,8 +18,6 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.xy.DefaultXYDataset;
-import org.jfree.data.xy.XYDataset;
 
 
 import de.szut.weather.models.Entry;
@@ -94,7 +91,7 @@ public class MainWindow {
 		highestTemperaturesTab.setName("Highest Temperatures");
 		DefaultPieDataset PieDataset = new DefaultPieDataset();
 		JFreeChart highestTemperaturesChart = ChartFactory.createPieChart3D("Highest Temperature", PieDataset);
-		
+
 		LinkedList<java.util.Map.Entry<String, Double>> tx = stats.getTx();
 		for(java.util.Map.Entry<String, Double> entry : tx){
 			PieDataset.setValue(entry.getValue() + " degree\n" + entry.getKey(), entry.getValue());
