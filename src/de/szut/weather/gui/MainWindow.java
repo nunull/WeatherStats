@@ -134,6 +134,7 @@ public class MainWindow {
 		tabs.add(allTemperaturesTab);
 
 		//DiaglogViewer
+		//TODO maybe calc the objectarrays in weatherstats?????????????????????
 		JPanel dialogTab = new JPanel();
 		dialogTab.setName("Dialogs");
 
@@ -141,27 +142,30 @@ public class MainWindow {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				this.putValue(NAME, arg0.getActionCommand() );
-				Object[] objects = null;
+				Object[] objects;
 				switch(arg0.getActionCommand()) {
 				case "TM":{
 					objects = new Object[] {stats.getTm()};
-					DialogViewer.showTm(objects);
 					break;
 				}
 				case "FX":{
 					int i = 0;
-					for (Entry entry : stats.getFx()){
-						objects[i] = entry.getValueAsGregorianCalendar("Datum").getTime().toLocaleString();
+					objects = new Object[10];
+					for (java.util.Map.Entry<String, Double> entry : stats.getTx()){
+						objects[i] = entry.getValue().getTime().toLocaleString();
 						i++;
 						objects[i] = entry.getValueAsDouble("TM");
 						i++;
 					}
+					DialogViewer.showFx(objects);
 					break;
 				}
 				case "TX":{
+					objects = new Object[10];
 					break;
 				}
 				case "SHK":{
+					objects = new Object[2];
 					break;
 				}
 				}

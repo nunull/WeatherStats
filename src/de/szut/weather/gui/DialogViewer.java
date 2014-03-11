@@ -39,6 +39,8 @@ public final class DialogViewer {
 	 * @param values The values.
 	 */
 	public static void showFx(Object[] values){
+
+		System.out.println(values.length);
 		if (values.length == 10) showMessage(STRFX, values); 
 	}
 
