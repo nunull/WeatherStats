@@ -56,11 +56,13 @@ public class Main {
 
 					SwingWorker<WeatherStats, Object> swingWorker = new SwingWorker<WeatherStats, Object>() {
 
+						private LinkedList<Entry> entrys;
+						
 						@Override
 						protected WeatherStats doInBackground()
 								throws Exception {
 							CSVParser reader = new CSVParser();
-							LinkedList<Entry> entrys = reader.parse(new BufferedReader(new FileReader(file.getAbsolutePath())));
+							entrys = reader.parse(new BufferedReader(new FileReader(file.getAbsolutePath())));
 
 							return new WeatherStats(entrys);
 						}
@@ -71,7 +73,7 @@ public class Main {
 							try {
 								waitDialog.setVisible(false);
 
-								mainW = new MainWindow(get());
+								mainW = new MainWindow(get(), entrys);
 								mainW.show();
 							} catch (InterruptedException e) {
 							} catch (ExecutionException e) {
