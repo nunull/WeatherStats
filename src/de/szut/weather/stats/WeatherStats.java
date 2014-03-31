@@ -27,7 +27,7 @@ public class WeatherStats implements Stats {
 
 	private Iterator<Entry> itr;
 	private LinkedList<Entry> dynamicList;
-	private static int DYNAMICLISTSIZEBUFFER = 1000;
+	private static int DYNAMICLISTSIZEBUFFER = 500;
 
 	/**
 	 * Constructor.

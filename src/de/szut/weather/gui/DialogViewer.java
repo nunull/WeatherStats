@@ -14,7 +14,7 @@ public final class DialogViewer {
 			"Wind 3 am {4}: {5}\n" +
 			"Wind 4 am {6}: {7}\n" +
 			"Wind 5 am {8}: {9}";
-	private static final String STRTX = "Aufgabe 1.3;Waermste Monate von 1 - 5 (1 am waermsten)\n\n" +
+	private static final String STRTX = "Aufgabe 1.3;Waermste Monate von 1 - 5 (1 am Waermsten)\n\n" +
 			"Monat 1: {0} mit {1} Grad Durchschnittstemperatur\n" +
 			"Monat 2: {2} mit {3} Grad Durchschnittstemperatur\n" +
 			"Monat 3: {4} mit {5} Grad Durchschnittstemperatur\n" +

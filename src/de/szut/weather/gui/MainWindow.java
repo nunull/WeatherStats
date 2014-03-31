@@ -108,7 +108,7 @@ public class MainWindow {
 		for ( Entry entry : stats.getDynamicList() ){
 			lineDataset.addValue(entry.getValueAsDouble("TM"), String.valueOf( entry.getValueAsGregorianCalendar("Datum").getTime().getYear()+1900), entry.getValueAsGregorianCalendar("Datum").getTime().toLocaleString());
 		}
-		final Timer timer = new Timer(300, new ActionListener() {
+		final Timer timer = new Timer(30, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				lineDataset.clear();
