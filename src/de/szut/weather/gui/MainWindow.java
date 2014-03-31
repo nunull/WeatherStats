@@ -135,7 +135,6 @@ public class MainWindow {
 		tabs.add(allTemperaturesTab);
 
 		//DiaglogViewer
-		//TODO maybe calc the objectarrays in weatherstats?????????????????????
 		JPanel dialogTab = new JPanel();
 		dialogTab.setName("Dialogs");
 
