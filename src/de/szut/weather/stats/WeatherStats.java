@@ -51,8 +51,8 @@ public class WeatherStats implements Stats {
 		fx.add(entrys.getFirst());
 
 		// Calculate monthly TX
-		TreeMap<String, Double> monthlyTX = new TreeMap<>();
-		TreeMap<String, Integer> monthlyTXCount = new TreeMap<>();
+		TreeMap<String, Double> monthlyTX = new TreeMap<String, Double>();
+		TreeMap<String, Integer> monthlyTXCount = new TreeMap<String, Integer>();
 		for(Entry entry : entrys) {
 			GregorianCalendar date = entry.getValueAsGregorianCalendar("Datum");
 			DateFormat dateFormat = new SimpleDateFormat("MMM yyyy");

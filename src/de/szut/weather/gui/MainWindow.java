@@ -37,6 +37,7 @@ public class MainWindow {
 	 * Constructor.
 	 * 
 	 * @param stats The statistics to be visualized.
+	 * @param entrys The entrys of the statistic.
 	 */
 	public MainWindow(WeatherStats stats, LinkedList<Entry> entrys) {
 		this.stats = stats;

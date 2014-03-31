@@ -26,7 +26,6 @@ public class Main {
 
 	/**
 	 * Applications entry point.
-	 * Shows a 
 	 * 
 	 * @param args ignored
 	 */
