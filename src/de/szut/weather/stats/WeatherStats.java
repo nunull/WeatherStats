@@ -1,8 +1,5 @@
 package de.szut.weather.stats;
 
-import java.awt.List;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
@@ -10,8 +7,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.TreeMap;
-
-import javax.swing.Timer;
 
 import de.szut.weather.models.Entry;
 

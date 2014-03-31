@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 
 import javax.swing.AbstractAction;
@@ -19,7 +20,6 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
-
 import de.szut.weather.models.Entry;
 import de.szut.weather.stats.WeatherStats;
 
@@ -28,8 +28,6 @@ import de.szut.weather.stats.WeatherStats;
  */
 public class MainWindow {
 	private WeatherStats stats;
-	private LinkedList<Entry> entrys;
-//	private final Iterator<Entry> entryIterator;
 	
 	private JFrame mainFrame;
 	private JTabbedPane tabbedPane;
@@ -142,22 +140,26 @@ public class MainWindow {
 		dialogTab.setName("Dialogs");
 
 		AbstractAction action = new AbstractAction(){
+			private static final long serialVersionUID = -7401443069568534753L;
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				this.putValue(NAME, arg0.getActionCommand() );
+//				this.putValue(NAME, arg0.getActionCommand() );
 				Object[] objects;
 				switch(arg0.getActionCommand()) {
 				case "TM":{
 					objects = new Object[] {stats.getTm()};
+					DialogViewer.showTm(objects);
 					break;
 				}
 				case "FX":{
-					int i = 0;
 					objects = new Object[10];
-					for (java.util.Map.Entry<String, Double> entry : stats.getTx()){
-						objects[i] = entry.getKey();
+					int i = 0;
+					for (Entry entry : stats.getFx()){
+						SimpleDateFormat sdf = new SimpleDateFormat("d. MMM yyyy");
+						objects[i] = sdf.format(entry.getValueAsGregorianCalendar("Datum").getTime());
 						i++;
-						objects[i] = entry.getValue();
+						objects[i] = entry.getValueAsString("FX");
 						i++;
 					}
 					DialogViewer.showFx(objects);
@@ -165,19 +167,51 @@ public class MainWindow {
 				}
 				case "TX":{
 					objects = new Object[10];
+					int i = 0;
+					for (java.util.Map.Entry<String, Double> entry : stats.getTx()){
+						objects[i] = entry.getKey();
+						i++;
+						objects[i] = entry.getValue();
+						i++;
+					}
+					DialogViewer.showTx(objects);
 					break;
 				}
 				case "SHK":{
 					objects = new Object[2];
+					
+					Entry entry = stats.getShk();
+					SimpleDateFormat sdf = new SimpleDateFormat("d. MMM yyyy");
+					objects[0] = entry.getValueAsString("SHK");
+					objects[1] = sdf.format(entry.getValueAsGregorianCalendar("Datum").getTime());
+						
+					DialogViewer.showShk(objects);
 					break;
 				}
 				}
 			}
 		};
 
+		JButton tmButton = new JButton(action);
+		tmButton.setText("Show TM");
+		tmButton.setActionCommand("TM");
+		dialogTab.add(tmButton);
+		
 		JButton fxButton = new JButton(action);
+		fxButton.setText("Show FX");
 		fxButton.setActionCommand("FX");
 		dialogTab.add(fxButton);
+		
+		JButton txButton = new JButton(action);
+		txButton.setText("Show TX");
+		txButton.setActionCommand("TX");
+		dialogTab.add(txButton);
+		
+		JButton shkButton = new JButton(action);
+		shkButton.setText("Show SHK");
+		shkButton.setActionCommand("SHK");
+		dialogTab.add(shkButton);
+		
 		tabs.add(dialogTab);
 	}
 
